@@ -59,3 +59,17 @@ if( BUILD_WITH_CCACHE )
     endif()
 endif()
 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU )
+  if ( ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.9 )
+    set( EXV_NEED_BOOST_REGEX ON
+      CACHE
+      BOOL
+      "Need Boost::regex as this version of gcc ships a broken implementation of <regex>")
+    find_package(Boost REQUIRED COMPONENTS regex)
+
+    # if(Boost_FOUND)
+    #   include_directories(${Boost_INCLUDE_DIRS})
+    #   target_link_libraries(progname ${Boost_LIBRARIES})
+    # endif()
+  endif()
+endif()
